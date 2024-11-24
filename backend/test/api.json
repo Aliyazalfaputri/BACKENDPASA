@@ -1,0 +1,217 @@
+{
+	"info": {
+	  "_postman_id": "a8b9c0d1-e2f3-4g5h-6i7j-8k9l0m1n2o3p",
+	  "name": "Password Strength Checker",
+	  "description": "API untuk mengecek kekuatan password dengan analisis keacakan pola",
+	  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+	  {
+		"name": "Check Password Strength",
+		"request": {
+		  "method": "POST",
+		  "header": [
+			{
+			  "key": "Content-Type",
+			  "value": "application/json",
+			  "type": "text"
+			}
+		  ],
+		  "body": {
+			"mode": "raw",
+			"raw": "{\n    \"password\": \"azsxdcfvgb\"\n}"
+		  },
+		  "url": {
+			"raw": "{{baseUrl}}/api/password/check",
+			"host": ["{{baseUrl}}"],
+			"path": ["api", "password", "check"]
+		  }
+		},
+		"response": [
+		  {
+			"name": "Strong Pattern",
+			"originalRequest": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n    \"password\": \"Str0ng#P@ssw0rd!2024\"\n}"
+			  }
+			},
+			"status": "OK",
+			"code": 200,
+			"header": [
+			  {
+				"key": "Content-Type",
+				"value": "application/json"
+			  }
+			],
+			"body": {
+			  "status": "success",
+			  "data": {
+				"strengthLevel": 3,
+				"strengthName": "strong",
+				"message": "Password kuat dengan kombinasi karakter acak dan panjang yang memadai",
+				"analysis": {
+				  "hasMinLength": true,
+				  "hasUpperCase": true,
+				  "hasLowerCase": true,
+				  "hasNumbers": true,
+				  "hasSpecialChars": true,
+				  "patternAnalysis": {
+					"adjacentKeyboardKeys": 0,
+					"consecutiveChars": 0,
+					"repeatingPatterns": 0,
+					"entropyScore": 0.9,
+					"keyboardPatternScore": 0.85,
+					"letterDistribution": {
+					  "vowels": 0.2,
+					  "consonants": 0.8,
+					  "distribution": "diverse"
+					},
+					"commonSequences": {
+					  "detected": false,
+					  "sequences": []
+					},
+					"overallRandomness": "very_high"
+				  }
+				},
+				"missingRequirements": []
+			  }
+			}
+		  },
+		  {
+			"name": "Medium Letter Pattern",
+			"originalRequest": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n    \"password\": \"azsxdcfvgb\"\n}"
+			  }
+			},
+			"status": "OK",
+			"code": 200,
+			"header": [
+			  {
+				"key": "Content-Type",
+				"value": "application/json"
+			  }
+			],
+			"body": {
+			  "status": "success",
+			  "data": {
+				"strengthLevel": 2,
+				"strengthName": "medium",
+				"message": "Password memiliki pola huruf yang acak",
+				"analysis": {
+				  "hasMinLength": true,
+				  "hasUpperCase": false,
+				  "hasLowerCase": true,
+				  "hasNumbers": false,
+				  "hasSpecialChars": false,
+				  "patternAnalysis": {
+					"adjacentKeyboardKeys": 0,
+					"consecutiveChars": 0,
+					"repeatingPatterns": 0,
+					"entropyScore": 0.95,
+					"keyboardPatternScore": 1.0,
+					"letterDistribution": {
+					  "vowels": 0.1,
+					  "consonants": 0.9,
+					  "distribution": "diverse"
+					},
+					"commonSequences": {
+					  "detected": false,
+					  "sequences": []
+					},
+					"overallRandomness": "high"
+				  }
+				},
+				"missingRequirements": [
+				  "Minimal 1 huruf besar",
+				  "Minimal 1 angka",
+				  "Minimal 1 karakter spesial"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Weak Letter Pattern",
+			"originalRequest": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n    \"password\": \"abcdefghij\"\n}"
+			  }
+			},
+			"status": "OK",
+			"code": 200,
+			"header": [
+			  {
+				"key": "Content-Type",
+				"value": "application/json"
+			  }
+			],
+			"body": {
+			  "status": "success",
+			  "data": {
+				"strengthLevel": 1,
+				"strengthName": "weak",
+				"message": "Password terlalu berurutan",
+				"analysis": {
+				  "hasMinLength": true,
+				  "hasUpperCase": false,
+				  "hasLowerCase": true,
+				  "hasNumbers": false,
+				  "hasSpecialChars": false,
+				  "patternAnalysis": {
+					"adjacentKeyboardKeys": 0,
+					"consecutiveChars": 9,
+					"repeatingPatterns": 1,
+					"entropyScore": 0.1,
+					"keyboardPatternScore": 1.0,
+					"letterDistribution": {
+					  "vowels": 0.2,
+					  "consonants": 0.8,
+					  "distribution": "sequential"
+					},
+					"commonSequences": {
+					  "detected": true,
+					  "sequences": ["alphabet_sequence"]
+					},
+					"overallRandomness": "very_low"
+				  }
+				},
+				"missingRequirements": [
+				  "Minimal 1 huruf besar",
+				  "Minimal 1 angka",
+				  "Minimal 1 karakter spesial"
+				]
+			  }
+			}
+		  }
+		]
+	  }
+	]
+  }
+  
